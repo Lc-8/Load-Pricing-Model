@@ -1,0 +1,684 @@
+{
+  "workbook_filename": "Advanced Load Pricing Model.xlsx",
+  "generated_utc": "2026-02-11T02:46:35Z",
+  "scan_window": {
+    "max_row": 100,
+    "max_col": "AZ",
+    "max_col_index": 52
+  },
+  "sheets": {
+    "Quick Estimate": {
+      "nonempty_count_A1:AZ100": 112,
+      "formula_count_A1:AZ100": 43,
+      "tables": []
+    },
+    "README": {
+      "nonempty_count_A1:AZ100": 7,
+      "formula_count_A1:AZ100": 0,
+      "tables": []
+    },
+    "Assumptions": {
+      "nonempty_count_A1:AZ100": 131,
+      "formula_count_A1:AZ100": 1,
+      "tables": []
+    },
+    "Accessorials": {
+      "nonempty_count_A1:AZ100": 92,
+      "formula_count_A1:AZ100": 0,
+      "tables": [
+        {
+          "name": "tblAccessorials",
+          "ref": "A3:G15",
+          "headers": [
+            "#",
+            "Accessorial",
+            "Default fee",
+            "Unit",
+            "Included",
+            "Overage fee",
+            "Notes"
+          ],
+          "header_row": 3,
+          "first_data_row": 4,
+          "last_data_row": 15
+        }
+      ]
+    },
+    "Rate Cards": {
+      "nonempty_count_A1:AZ100": 304,
+      "formula_count_A1:AZ100": 108,
+      "tables": [
+        {
+          "name": "tblRateCards",
+          "ref": "A6:I42",
+          "headers": [
+            "Equipment type",
+            "Miles band start",
+            "Miles band end",
+            "Reference rate per loaded mile",
+            "Minimum linehaul",
+            "Notes",
+            "EquipKey",
+            "BandStartNum",
+            "BandEndNum"
+          ],
+          "header_row": 6,
+          "first_data_row": 7,
+          "last_data_row": 42
+        }
+      ]
+    },
+    "Fuel Surcharge": {
+      "nonempty_count_A1:AZ100": 342,
+      "formula_count_A1:AZ100": 163,
+      "tables": [
+        {
+          "name": "tblFuelSurcharge",
+          "ref": "A13:E94",
+          "headers": [
+            "Fuel price (from)",
+            "Fuel price (to)",
+            "Fuel surcharge per mile",
+            "Computation",
+            "Notes"
+          ],
+          "header_row": 13,
+          "first_data_row": 14,
+          "last_data_row": 94
+        }
+      ]
+    },
+    "Load Input": {
+      "nonempty_count_A1:AZ100": 155,
+      "formula_count_A1:AZ100": 75,
+      "tables": [
+        {
+          "name": "tblLoadAccessorials",
+          "ref": "A43:H55",
+          "headers": [
+            "Include?",
+            "Accessorial",
+            "Quantity",
+            "Unit",
+            "Default fee",
+            "Included",
+            "Overage fee",
+            "Calculated charge"
+          ],
+          "header_row": 43,
+          "first_data_row": 44,
+          "last_data_row": 55
+        }
+      ]
+    },
+    "Cost Model": {
+      "nonempty_count_A1:AZ100": 62,
+      "formula_count_A1:AZ100": 28,
+      "tables": []
+    },
+    "Pricing Summary": {
+      "nonempty_count_A1:AZ100": 114,
+      "formula_count_A1:AZ100": 56,
+      "tables": [
+        {
+          "name": "tblCostBreakdown",
+          "ref": "A49:C61",
+          "headers": [
+            "Cost category",
+            "Amount",
+            "Percent of price"
+          ],
+          "header_row": 49,
+          "first_data_row": 50,
+          "last_data_row": 61
+        }
+      ]
+    },
+    "Blank 6 Read Me": {
+      "nonempty_count_A1:AZ100": 11,
+      "formula_count_A1:AZ100": 0,
+      "tables": []
+    },
+    "Blank 6 Assumptions": {
+      "nonempty_count_A1:AZ100": 43,
+      "formula_count_A1:AZ100": 0,
+      "tables": []
+    },
+    "Blank 6 Rate Card": {
+      "nonempty_count_A1:AZ100": 32,
+      "formula_count_A1:AZ100": 0,
+      "tables": []
+    },
+    "Blank 6 Loads": {
+      "nonempty_count_A1:AZ100": 2668,
+      "formula_count_A1:AZ100": 2619,
+      "tables": [
+        {
+          "name": "B6_LoadsTable",
+          "ref": "A3:AV123",
+          "headers": [
+            "Load ID",
+            "Load date",
+            "Customer",
+            "Equipment type",
+            "Origin",
+            "Destination",
+            "Loaded miles",
+            "Deadhead miles",
+            "Fuel price (optional)",
+            "Base rate per loaded mile (optional)",
+            "Minimum linehaul (optional)",
+            "Detention",
+            "Layover",
+            "Tolls",
+            "Lumper fees",
+            "Tarp fee",
+            "Other accessorial fees",
+            "Other extra fees",
+            "Accessorial markup percent (optional)",
+            "Risk premium percent of cost (optional)",
+            "Notes",
+            "Total miles",
+            "Fuel price used",
+            "Base rate used",
+            "Minimum linehaul used",
+            "Market linehaul",
+            "Fuel surcharge per mile",
+            "Fuel surcharge total",
+            "Accessorial fees at cost",
+            "Accessorial charge (with markup)",
+            "Estimated trip hours",
+            "Estimated trip days",
+            "Fuel cost",
+            "Variable cost excluding fuel",
+            "Fixed cost allocated",
+            "Subtotal cost",
+            "Contingency cost",
+            "Risk premium cost",
+            "Total cost",
+            "Market total price",
+            "Profit at market price",
+            "Profit margin at market price",
+            "Recommended total price (cost-based)",
+            "Recommended linehaul",
+            "Profit at recommended price",
+            "Profit margin at recommended price",
+            "Recommended price per loaded mile",
+            "Recommended price per total mile"
+          ],
+          "header_row": 3,
+          "first_data_row": 4,
+          "last_data_row": 123
+        }
+      ]
+    },
+    "Blank 6 Load Quote": {
+      "nonempty_count_A1:AZ100": 43,
+      "formula_count_A1:AZ100": 19,
+      "tables": []
+    },
+    "Blank 6 Dashboard": {
+      "nonempty_count_A1:AZ100": 59,
+      "formula_count_A1:AZ100": 47,
+      "tables": []
+    }
+  },
+  "defined_names": {
+    "Assump_EquipmentType": [
+      {
+        "sheet": "Assumptions",
+        "ref": "B5"
+      }
+    ],
+    "Assump_SpeedLoaded": [
+      {
+        "sheet": "Assumptions",
+        "ref": "B6"
+      }
+    ],
+    "Assump_SpeedDeadhead": [
+      {
+        "sheet": "Assumptions",
+        "ref": "B7"
+      }
+    ],
+    "Assump_HoursPerDay": [
+      {
+        "sheet": "Assumptions",
+        "ref": "B8"
+      }
+    ],
+    "Assump_StopHours": [
+      {
+        "sheet": "Assumptions",
+        "ref": "B9"
+      }
+    ],
+    "Assump_MPG_Loaded": [
+      {
+        "sheet": "Assumptions",
+        "ref": "B10"
+      }
+    ],
+    "Assump_MPG_Deadhead": [
+      {
+        "sheet": "Assumptions",
+        "ref": "B11"
+      }
+    ],
+    "Assump_DieselPrice": [
+      {
+        "sheet": "Assumptions",
+        "ref": "B15"
+      }
+    ],
+    "Assump_DEFPrice": [
+      {
+        "sheet": "Assumptions",
+        "ref": "B16"
+      }
+    ],
+    "Assump_DEFPer1000": [
+      {
+        "sheet": "Assumptions",
+        "ref": "B17"
+      }
+    ],
+    "Assump_MaintLoaded": [
+      {
+        "sheet": "Assumptions",
+        "ref": "B18"
+      }
+    ],
+    "Assump_MaintDeadhead": [
+      {
+        "sheet": "Assumptions",
+        "ref": "B19"
+      }
+    ],
+    "Assump_Tires": [
+      {
+        "sheet": "Assumptions",
+        "ref": "B20"
+      }
+    ],
+    "Assump_TollsPerMile": [
+      {
+        "sheet": "Assumptions",
+        "ref": "B21"
+      }
+    ],
+    "Assump_PayModel": [
+      {
+        "sheet": "Assumptions",
+        "ref": "B25"
+      }
+    ],
+    "Assump_PayPerMile": [
+      {
+        "sheet": "Assumptions",
+        "ref": "B26"
+      }
+    ],
+    "Assump_PayPerHour": [
+      {
+        "sheet": "Assumptions",
+        "ref": "B27"
+      }
+    ],
+    "Assump_PayPctLinehaul": [
+      {
+        "sheet": "Assumptions",
+        "ref": "B28"
+      }
+    ],
+    "Assump_TruckPerDay": [
+      {
+        "sheet": "Assumptions",
+        "ref": "B29"
+      }
+    ],
+    "Assump_TrailerPerDay": [
+      {
+        "sheet": "Assumptions",
+        "ref": "B30"
+      }
+    ],
+    "Assump_InsurancePerDay": [
+      {
+        "sheet": "Assumptions",
+        "ref": "B31"
+      }
+    ],
+    "Assump_PermitsPerDay": [
+      {
+        "sheet": "Assumptions",
+        "ref": "B32"
+      }
+    ],
+    "Assump_TechPerDay": [
+      {
+        "sheet": "Assumptions",
+        "ref": "B33"
+      }
+    ],
+    "Assump_OverheadPerDay": [
+      {
+        "sheet": "Assumptions",
+        "ref": "B34"
+      }
+    ],
+    "Assump_BrokerPct": [
+      {
+        "sheet": "Assumptions",
+        "ref": "B35"
+      }
+    ],
+    "Assump_CardPct": [
+      {
+        "sheet": "Assumptions",
+        "ref": "B36"
+      }
+    ],
+    "Assump_PricingMethod": [
+      {
+        "sheet": "Assumptions",
+        "ref": "B41"
+      }
+    ],
+    "Assump_TargetMargin": [
+      {
+        "sheet": "Assumptions",
+        "ref": "B42"
+      }
+    ],
+    "Assump_TargetMarkup": [
+      {
+        "sheet": "Assumptions",
+        "ref": "B43"
+      }
+    ],
+    "Assump_RiskPct": [
+      {
+        "sheet": "Assumptions",
+        "ref": "B44"
+      }
+    ],
+    "Assump_UrgencyPct": [
+      {
+        "sheet": "Assumptions",
+        "ref": "B45"
+      }
+    ],
+    "Assump_MinCharge": [
+      {
+        "sheet": "Assumptions",
+        "ref": "B46"
+      }
+    ],
+    "Fuel_BaselinePrice": [
+      {
+        "sheet": "Fuel Surcharge",
+        "ref": "B6"
+      }
+    ],
+    "Fuel_BaselineRate": [
+      {
+        "sheet": "Fuel Surcharge",
+        "ref": "B7"
+      }
+    ],
+    "Fuel_MPG": [
+      {
+        "sheet": "Fuel Surcharge",
+        "ref": "B9"
+      }
+    ],
+    "Load_LoadedMiles": [
+      {
+        "sheet": "Load Input",
+        "ref": "B15"
+      }
+    ],
+    "Load_TotalDeadhead": [
+      {
+        "sheet": "Load Input",
+        "ref": "B18"
+      }
+    ],
+    "Load_TotalMiles": [
+      {
+        "sheet": "Load Input",
+        "ref": "B19"
+      }
+    ],
+    "Load_BaseRateOverride": [
+      {
+        "sheet": "Load Input",
+        "ref": "B22"
+      }
+    ],
+    "Load_ReferenceRate": [
+      {
+        "sheet": "Load Input",
+        "ref": "B23"
+      }
+    ],
+    "Load_MarketAdjPct": [
+      {
+        "sheet": "Load Input",
+        "ref": "B24"
+      }
+    ],
+    "Load_LaneFactorPct": [
+      {
+        "sheet": "Load Input",
+        "ref": "B25"
+      }
+    ],
+    "Load_MinLinehaulOverride": [
+      {
+        "sheet": "Load Input",
+        "ref": "B26"
+      }
+    ],
+    "Load_RiskOverride": [
+      {
+        "sheet": "Load Input",
+        "ref": "B29"
+      }
+    ],
+    "Load_UrgencyOverride": [
+      {
+        "sheet": "Load Input",
+        "ref": "B30"
+      }
+    ],
+    "Load_Tolls": [
+      {
+        "sheet": "Load Input",
+        "ref": "B34"
+      }
+    ],
+    "Load_Permits": [
+      {
+        "sheet": "Load Input",
+        "ref": "B35"
+      }
+    ],
+    "Load_Escort": [
+      {
+        "sheet": "Load Input",
+        "ref": "B36"
+      }
+    ],
+    "Load_Scales": [
+      {
+        "sheet": "Load Input",
+        "ref": "B37"
+      }
+    ],
+    "Load_Parking": [
+      {
+        "sheet": "Load Input",
+        "ref": "B38"
+      }
+    ],
+    "Load_OtherFees": [
+      {
+        "sheet": "Load Input",
+        "ref": "B39"
+      }
+    ],
+    "Cost_TotalHours": [
+      {
+        "sheet": "Cost Model",
+        "ref": "B7"
+      }
+    ],
+    "Cost_Days": [
+      {
+        "sheet": "Cost Model",
+        "ref": "B8"
+      }
+    ],
+    "Cost_FixedTotal": [
+      {
+        "sheet": "Cost Model",
+        "ref": "B34"
+      }
+    ],
+    "Cost_VariableOps": [
+      {
+        "sheet": "Cost Model",
+        "ref": "B38"
+      }
+    ],
+    "Cost_PassThrough": [
+      {
+        "sheet": "Cost Model",
+        "ref": "B41"
+      }
+    ],
+    "Cost_Accessorials": [
+      {
+        "sheet": "Cost Model",
+        "ref": "B42"
+      }
+    ],
+    "Cost_TotalBeforeFees": [
+      {
+        "sheet": "Cost Model",
+        "ref": "B44"
+      }
+    ],
+    "Price_FinalQuote": [
+      {
+        "sheet": "Pricing Summary",
+        "ref": "B32"
+      }
+    ],
+    "B6_DefaultFuelPrice": [
+      {
+        "sheet": "Blank 6 Assumptions",
+        "ref": "$B$4"
+      }
+    ],
+    "B6_BaseFuelPrice": [
+      {
+        "sheet": "Blank 6 Assumptions",
+        "ref": "$B$5"
+      }
+    ],
+    "B6_FuelEconomy": [
+      {
+        "sheet": "Blank 6 Assumptions",
+        "ref": "$B$6"
+      }
+    ],
+    "B6_AverageSpeed": [
+      {
+        "sheet": "Blank 6 Assumptions",
+        "ref": "$B$7"
+      }
+    ],
+    "B6_DwellHours": [
+      {
+        "sheet": "Blank 6 Assumptions",
+        "ref": "$B$8"
+      }
+    ],
+    "B6_VariableCostPerMile": [
+      {
+        "sheet": "Blank 6 Assumptions",
+        "ref": "$B$9"
+      }
+    ],
+    "B6_FixedCostPerDay": [
+      {
+        "sheet": "Blank 6 Assumptions",
+        "ref": "$B$10"
+      }
+    ],
+    "B6_ContingencyPercent": [
+      {
+        "sheet": "Blank 6 Assumptions",
+        "ref": "$B$11"
+      }
+    ],
+    "B6_OverheadPercent": [
+      {
+        "sheet": "Blank 6 Assumptions",
+        "ref": "$B$12"
+      }
+    ],
+    "B6_TargetProfitMargin": [
+      {
+        "sheet": "Blank 6 Assumptions",
+        "ref": "$B$13"
+      }
+    ],
+    "B6_MinProfit": [
+      {
+        "sheet": "Blank 6 Assumptions",
+        "ref": "$B$14"
+      }
+    ],
+    "B6_MinPrice": [
+      {
+        "sheet": "Blank 6 Assumptions",
+        "ref": "$B$15"
+      }
+    ],
+    "B6_DefaultAccessorialMarkup": [
+      {
+        "sheet": "Blank 6 Assumptions",
+        "ref": "$B$16"
+      }
+    ],
+    "B6_FuelSurchargeAppliesTo": [
+      {
+        "sheet": "Blank 6 Assumptions",
+        "ref": "$B$17"
+      }
+    ],
+    "B6_EquipmentList": [
+      {
+        "sheet": "Blank 6 Assumptions",
+        "ref": "$A$22:$A$26"
+      }
+    ],
+    "B6_RateCardRange": [
+      {
+        "sheet": "Blank 6 Rate Card",
+        "ref": "$A$6:$E$10"
+      }
+    ],
+    "Load_EquipmentNeeded": [
+      {
+        "sheet": "Load Input",
+        "ref": "$B$10"
+      }
+    ]
+  }
+}

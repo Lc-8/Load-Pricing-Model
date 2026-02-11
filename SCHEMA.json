@@ -1,0 +1,618 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cfa.local/schemas/quote.json",
+  "title": "CFA Load Pricing Engine Schemas",
+  "type": "object",
+  "definitions": {
+    "QuoteRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "equipment_type",
+        "weight_lbs",
+        "loaded_miles"
+      ],
+      "properties": {
+        "origin_city_state": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "destination_city_state": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "pickup_date": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "ISO date or free text"
+        },
+        "equipment_type": {
+          "type": "string"
+        },
+        "weight_lbs": {
+          "type": "number",
+          "minimum": 0
+        },
+        "loaded_miles": {
+          "type": "number",
+          "minimum": 0
+        },
+        "deadhead_miles": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0
+        },
+        "other_flat": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0
+        },
+        "overrides": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "diesel_price_override": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "target_margin_override": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0,
+              "maximum": 1
+            },
+            "target_markup_override": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0,
+              "maximum": 5
+            },
+            "contingency_override": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0,
+              "maximum": 1
+            },
+            "urgency_override": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0,
+              "maximum": 1
+            },
+            "owner_operator_mode": {
+              "type": [
+                "boolean",
+                "null"
+              ],
+              "description": "If true, allow 0-driver-pay cash view"
+            }
+          }
+        },
+        "meta": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Free-form metadata: customer, lane_id, notes, etc."
+        }
+      }
+    },
+    "QuoteResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "final_estimate",
+        "recommended_charge",
+        "operating_cost_after_risk",
+        "profit_dollars",
+        "profit_percent",
+        "ledger",
+        "warnings"
+      ],
+      "properties": {
+        "config_hash": {
+          "type": "string"
+        },
+        "totals": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "loaded_miles": {
+              "type": "number"
+            },
+            "deadhead_miles": {
+              "type": "number"
+            },
+            "total_miles": {
+              "type": "number"
+            },
+            "estimated_days": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        },
+        "market": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "market_rate_per_loaded_mile": {
+              "type": "number",
+              "description": "USD dollars",
+              "minimum": 0
+            },
+            "market_min_linehaul": {
+              "type": "number",
+              "description": "USD dollars",
+              "minimum": 0
+            },
+            "market_linehaul": {
+              "type": "number",
+              "description": "USD dollars",
+              "minimum": 0
+            }
+          }
+        },
+        "fuel": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "diesel_price_used": {
+              "type": "number",
+              "description": "USD dollars",
+              "minimum": 0
+            },
+            "fuel_surcharge_per_mile": {
+              "type": "number",
+              "description": "USD dollars",
+              "minimum": 0
+            },
+            "fuel_surcharge_total": {
+              "type": "number",
+              "description": "USD dollars",
+              "minimum": 0
+            }
+          }
+        },
+        "costs": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "fuel_cost": {
+              "type": "number",
+              "description": "USD dollars",
+              "minimum": 0
+            },
+            "def_cost": {
+              "type": "number",
+              "description": "USD dollars",
+              "minimum": 0
+            },
+            "maintenance_cost": {
+              "type": "number",
+              "description": "USD dollars",
+              "minimum": 0
+            },
+            "tires_cost": {
+              "type": "number",
+              "description": "USD dollars",
+              "minimum": 0
+            },
+            "tolls_cost": {
+              "type": "number",
+              "description": "USD dollars",
+              "minimum": 0
+            },
+            "driver_pay": {
+              "type": "number",
+              "description": "USD dollars",
+              "minimum": 0
+            },
+            "fixed_cost_allocation": {
+              "type": "number",
+              "description": "USD dollars",
+              "minimum": 0
+            },
+            "operating_cost_before_risk": {
+              "type": "number",
+              "description": "USD dollars",
+              "minimum": 0
+            }
+          }
+        },
+        "risk": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "risk_score": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "contingency_percent_used": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "contingency_amount": {
+              "type": "number",
+              "description": "USD dollars",
+              "minimum": 0
+            }
+          }
+        },
+        "pricing": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "cost_based_price": {
+              "type": "number",
+              "description": "USD dollars",
+              "minimum": 0
+            },
+            "market_based_price": {
+              "type": "number",
+              "description": "USD dollars",
+              "minimum": 0
+            },
+            "minimum_charge": {
+              "type": "number",
+              "description": "USD dollars",
+              "minimum": 0
+            },
+            "recommended_charge": {
+              "type": "number",
+              "description": "USD dollars",
+              "minimum": 0
+            },
+            "other_flat": {
+              "type": "number",
+              "description": "USD dollars",
+              "minimum": 0
+            },
+            "final_estimate": {
+              "type": "number",
+              "description": "USD dollars",
+              "minimum": 0
+            },
+            "rounding_increment": {
+              "type": [
+                "number",
+                "null"
+              ]
+            }
+          }
+        },
+        "operating_cost_after_risk": {
+          "type": "number",
+          "description": "USD dollars",
+          "minimum": 0
+        },
+        "recommended_charge": {
+          "type": "number",
+          "description": "USD dollars",
+          "minimum": 0
+        },
+        "final_estimate": {
+          "type": "number",
+          "description": "USD dollars",
+          "minimum": 0
+        },
+        "profit_dollars": {
+          "type": "number",
+          "description": "USD dollars",
+          "minimum": 0
+        },
+        "profit_percent": {
+          "type": "number"
+        },
+        "ledger": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "line",
+              "debit",
+              "credit"
+            ],
+            "properties": {
+              "line": {
+                "type": "string"
+              },
+              "debit": {
+                "type": "number",
+                "description": "USD dollars",
+                "minimum": 0
+              },
+              "credit": {
+                "type": "number",
+                "description": "USD dollars",
+                "minimum": 0
+              },
+              "kind": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "enum": [
+                  null,
+                  "debit",
+                  "credit",
+                  "subtotal",
+                  "net"
+                ]
+              },
+              "note": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "analytics": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "sensitivity": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "scenario": {
+                    "type": "string"
+                  },
+                  "final_estimate": {
+                    "type": "number",
+                    "description": "USD dollars",
+                    "minimum": 0
+                  },
+                  "profit_dollars": {
+                    "type": "number",
+                    "description": "USD dollars",
+                    "minimum": 0
+                  },
+                  "profit_percent": {
+                    "type": "number"
+                  }
+                }
+              }
+            },
+            "scenario_ladder": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "charge": {
+                    "type": "number",
+                    "description": "USD dollars",
+                    "minimum": 0
+                  },
+                  "notes": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            },
+            "breakeven": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "breakeven_charge": {
+                  "type": "number",
+                  "description": "USD dollars",
+                  "minimum": 0
+                },
+                "breakeven_per_loaded_mile": {
+                  "type": "number",
+                  "description": "USD dollars",
+                  "minimum": 0
+                },
+                "breakeven_per_total_mile": {
+                  "type": "number",
+                  "description": "USD dollars",
+                  "minimum": 0
+                }
+              }
+            }
+          }
+        },
+        "copy_paste_line": {
+          "type": "string"
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "LedgerRow": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "line",
+        "debit",
+        "credit"
+      ],
+      "properties": {
+        "line": {
+          "type": "string"
+        },
+        "debit": {
+          "type": "number",
+          "description": "USD dollars",
+          "minimum": 0
+        },
+        "credit": {
+          "type": "number",
+          "description": "USD dollars",
+          "minimum": 0
+        },
+        "kind": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            null,
+            "debit",
+            "credit",
+            "subtotal",
+            "net"
+          ]
+        },
+        "note": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "Analytics": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sensitivity": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "scenario": {
+                "type": "string"
+              },
+              "final_estimate": {
+                "type": "number",
+                "description": "USD dollars",
+                "minimum": 0
+              },
+              "profit_dollars": {
+                "type": "number",
+                "description": "USD dollars",
+                "minimum": 0
+              },
+              "profit_percent": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        "scenario_ladder": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "charge": {
+                "type": "number",
+                "description": "USD dollars",
+                "minimum": 0
+              },
+              "notes": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "breakeven": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "breakeven_charge": {
+              "type": "number",
+              "description": "USD dollars",
+              "minimum": 0
+            },
+            "breakeven_per_loaded_mile": {
+              "type": "number",
+              "description": "USD dollars",
+              "minimum": 0
+            },
+            "breakeven_per_total_mile": {
+              "type": "number",
+              "description": "USD dollars",
+              "minimum": 0
+            }
+          }
+        }
+      }
+    },
+    "ConfigStatus": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "config_hash": {
+          "type": "string"
+        },
+        "loaded_at": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string",
+          "enum": [
+            "dropbox",
+            "cache"
+          ]
+        },
+        "tables": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "rate_cards_rows": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "fuel_schedule_rows": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "accessorial_rows": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
